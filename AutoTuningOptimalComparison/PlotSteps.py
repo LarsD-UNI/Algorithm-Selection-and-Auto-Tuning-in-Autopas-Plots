@@ -1,29 +1,21 @@
 import matplotlib
 
-# Headless-Backend aktivieren (kein GUI-Fenster nötig)
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# =========================================================
-# Globale Styling-Einstellungen (Optimiert für IEEE 2-Column)
-# =========================================================
 plt.rcParams.update({
-    "font.size": 12,  # Basis-Schriftgröße
-    "axes.labelsize": 13,  # X- und Y-Achsen-Beschriftung
-    "xtick.labelsize": 11,  # Zahlen an der X-Achse
-    "ytick.labelsize": 11,  # Zahlen an der Y-Achse
-    "legend.fontsize": 11,  # Legenden-Text
-    "lines.linewidth": 2.0,  # Standard-Linienstärke
+    "font.size": 12,
+    "axes.labelsize": 13,
+    "xtick.labelsize": 11,
+    "ytick.labelsize": 11,
+    "legend.fontsize": 11,
+    "lines.linewidth": 2.0,
 })
 
-# =========================================================
-# Konfiguration
-# =========================================================
-step_size = 100  # n Schritte pro Block
-max_iteration = 10000  # Maximale Iteration (exklusive -> 0 bis 9999)
+step_size = 100
+max_iteration = 10000
 
-# IEEE Single-Column Breite ist ca. 3.5 inch -> 7x3.8 skaliert sauber auf ~50%
 ieee_figsize = (7, 3.8)
 
 dateien = [
@@ -42,15 +34,11 @@ dateien = [
 ausgabe_vergleich_png = "performance_vergleich.png"
 ausgabe_optimal_png = "performance_optimal.png"
 
-# =========================================================
-# 1. Daten einlesen, kürzen und pro Block aggregieren
-# =========================================================
 grouped_dfs = {}
 
 for daten in dateien:
     df = pd.read_csv(daten["pfad"])
 
-    # Auf die ersten 10.000 Iterationen beschränken
     df = df[df["Iteration"] < max_iteration].copy()
 
     df["Dauer_ms"] = df["computeInteractionsTotal[ns]"] / 1e6
@@ -65,7 +53,6 @@ for daten in dateien:
 
     grouped_dfs[daten["label"]] = grouped
 
-# Zusammenführen aller Daten über den Iterations-Block
 label1 = dateien[0]["label"]
 label2 = dateien[1]["label"]
 
@@ -73,23 +60,16 @@ df_combined = pd.merge(
     grouped_dfs[label1], grouped_dfs[label2], on="Block", how="inner"
 )
 
-# Besten Wert (Minimum) für jeden Block ermitteln
 df_combined["Optimal"] = df_combined[[label1, label2]].min(axis=1)
 
-# Marker-Größe an die schmalere IEEE-Breite angepasst
 marker_size = 3 if step_size <= 100 else 6
 
-# Gesamtlaufzeiten in Sekunden umrechnen (ms -> s)
 gesamtdauer_l1_s = df_combined[label1].sum() / 1000.0
 gesamtdauer_l2_s = df_combined[label2].sum() / 1000.0
 gesamtdauer_opt_s = df_combined["Optimal"].sum() / 1000.0
 
-# Y-Maximum mit 30% Platz nach oben berechnen, damit die Legende keine Daten überdeckt
 y_max = df_combined[[label1, label2]].max().max() * 1.30
 
-# =========================================================
-# Plot 1: Direct Comparison (mit kumulierter Laufzeit in Sekunden)
-# =========================================================
 plt.figure(figsize=ieee_figsize)
 
 plt.plot(
@@ -123,12 +103,8 @@ plt.tight_layout()
 plt.savefig(ausgabe_vergleich_png, dpi=300)
 plt.close()
 
-# =========================================================
-# Plot 2: Optimal Path (mit kumulierter Laufzeit in Sekunden)
-# =========================================================
 plt.figure(figsize=ieee_figsize)
 
-# Einzelkurven als Referenz im Hintergrund
 plt.plot(
     df_combined["Block"],
     df_combined[label1],
@@ -170,9 +146,6 @@ plt.tight_layout()
 plt.savefig(ausgabe_optimal_png, dpi=300)
 plt.close()
 
-# =========================================================
-# Konsolen-Ausgabe (für die ersten 10.000 Iterationen)
-# =========================================================
 best_single_s = min(gesamtdauer_l1_s, gesamtdauer_l2_s)
 rel_savings = (1 - (gesamtdauer_opt_s / best_single_s)) * 100
 
