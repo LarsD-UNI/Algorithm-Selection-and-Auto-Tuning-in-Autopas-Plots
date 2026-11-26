@@ -1,0 +1,540 @@
+==========================================
+RUN 1 - Thu Nov 26 11:54:47 CET 2026
+==========================================
+# Running single-site MD simulation.
+
+container                        :  [DirectSum, LinkedCells, LinkedCellsReferences, VarVerletListsAsBuild, VerletClusterLists, VerletLists, VerletListsCells, PairwiseVerletLists]
+verlet-rebuild-frequency         :  10
+verlet-skin-radius               :  1
+verlet-cluster-size              :  4
+selector-strategy                :  Fastest-Absolute-Value
+tuning-strategies                :  []
+tuning-metric                    :  time
+tuning-interval                  :  10000
+tuning-samples                   :  3
+early-stopping-factor            :  1.79769e+308
+use-LOESS-smoothening            :  false
+functor                          :  Lennard-Jones (12-6) Highway Wrapper
+traversal                        :  [ds_sequential, lc_c01, lc_c01_combined_SoA, lc_c04, lc_c04_HCP, lc_c04_combined_SoA, lc_c08, lc_c18, lc_sliced, lc_sliced_balanced, lc_sliced_c02, vcl_c01_balanced, vcl_c06, vcl_cluster_iteration, vcl_sliced, vcl_sliced_balanced, vcl_sliced_c02, vl_list_iteration, vlc_c01, vlc_c18, vlc_sliced, vlc_sliced_balanced, vlc_sliced_c02, vlp_c01, vlp_c18, vlp_sliced, vlp_sliced_balanced, vlp_sliced_c02, vvl_as_built]
+data-layout                      :  [AoS, SoA]
+newton3                          :  [disabled, enabled]
+vectorization-pattern            :  [1xVectorLength, 2xVectorLengthDiv2, VectorLengthDiv2x2, VectorLengthx1]
+cutoff                           :  3
+box-min                          :  [0, 0, 0]
+box-max                          :  [49.5, 29.5, 38]
+cell-size                        :  [1]
+deltaT                           :  0.0005
+pause-simulation-during-tuning   :  true
+aos-sorting-threshold            :  8
+soa-sorting-threshold            :  100
+use-sorting-threshold-benchmark  :  false
+iterations                       :  22000
+boundary-type                    :  [reflective, reflective, reflective]
+Sites:                           
+  0:
+    epsilon                      :  1
+    sigma                        :  1
+    nu                           :  0
+    mass                         :  1
+Objects:                         
+  CubeClosestPacked:
+    0:  
+      particle-density           :  1.02113
+      box-length                 :  [49.5, 29.5, 10]
+      bottomLeftCorner           :  [0, 0, 0]
+      structure                  :  fcc
+      centered                   :  true
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+  Sphere:
+    0:  
+      center                     :  [18, 15, 30]
+      radius                     :  6
+      particle-spacing           :  1.12246
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+globalForce                      :  [0, 0, -12]
+use-tuning-logger                :  false
+output-suffix                    :  
+log-level                        :  info
+no-end-config                    :  false
+no-progress-bar                  :  true
+load-balancer                    :  InvertedPressure
+load-balancing-interval          :  100
+subdivide-dimension              :  [true, true, true]
+energy-sensor                    :  rapl
+
+
+Using 16 Threads
+MPI is disabled.
+[2026-11-26 11:54:47.923] [AutoPasLog] [info] [AutoPasImpl.h:59] AutoPas Version: 3.0.0-e17bad8
+[2026-11-26 11:54:47.924] [AutoPasLog] [info] [AutoPasImpl.h:60] Compiled with  : GCC 15.2.0
+Number of particles at initialization on rank 0: 16288
+Number of particles at initialization globally : 16288
+Iteration 0: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 0: Resuming simulation after tuning phase.
+Iteration 9106: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 9106: Resuming simulation after tuning phase.
+Iteration 18212: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 18212: Resuming simulation after tuning phase.
+
+
+Total number of particles at the end of Simulation: 16288
+Owned: 16288
+Halo : 0
+Measurements:
+Total accumulated                  : 85413081953 ns (85.413s)
+  Initialization                   :     8142460 ns ( 0.008s) =  0.010%
+  Simulate                         : 85404938803 ns (85.405s) = 99.990%
+    PositionUpdate                 :  1020244289 ns ( 1.020s) =  1.195%
+    UpdateContainer                :  3167686661 ns ( 3.168s) =  3.709%
+    Boundaries                     :   486804817 ns ( 0.487s) =  0.570%
+      HaloParticleExchange         :   484134770 ns ( 0.484s) =  4.946%
+      ReflectParticlesAtBoundaries :  9302496540 ns ( 9.302s) = 95.027%
+      MigratingParticleExchange    :     2670047 ns ( 0.003s) =  0.027%
+    ForceUpdateTotal               : 70335005892 ns (70.335s) = 82.355%
+      Tuning                       : 28152278299 ns (28.152s) = 40.026%
+      ForceUpdateTuning            : 28152278299 ns (28.152s) = 40.026%
+      ForceUpdateNonTuning         : 42173505461 ns (42.174s) = 59.961%
+    VelocityUpdate                 :  1058308731 ns ( 1.058s) =  1.239%
+    LoadBalancing                  :     7856544 ns ( 0.008s) =  0.009%
+  One iteration                  :     3882042 ns ( 0.004s) =  0.005%
+Total wall-clock time              : 85413081953 ns (85.413s) =100.000%
+
+Tuning iterations                  : 2682 / 22000 = 12.1909%
+MFUPs/sec                          : 5.0947
+Mean Rebuild Frequency               : 7.9748
+Total Energy Consumed (in Joules)    : 0
+
+==========================================
+RUN 2 - Thu Nov 26 11:56:13 CET 2026
+==========================================
+# Running single-site MD simulation.
+
+container                        :  [DirectSum, LinkedCells, LinkedCellsReferences, VarVerletListsAsBuild, VerletClusterLists, VerletLists, VerletListsCells, PairwiseVerletLists]
+verlet-rebuild-frequency         :  10
+verlet-skin-radius               :  1
+verlet-cluster-size              :  4
+selector-strategy                :  Fastest-Absolute-Value
+tuning-strategies                :  []
+tuning-metric                    :  time
+tuning-interval                  :  10000
+tuning-samples                   :  3
+early-stopping-factor            :  1.79769e+308
+use-LOESS-smoothening            :  false
+functor                          :  Lennard-Jones (12-6) Highway Wrapper
+traversal                        :  [ds_sequential, lc_c01, lc_c01_combined_SoA, lc_c04, lc_c04_HCP, lc_c04_combined_SoA, lc_c08, lc_c18, lc_sliced, lc_sliced_balanced, lc_sliced_c02, vcl_c01_balanced, vcl_c06, vcl_cluster_iteration, vcl_sliced, vcl_sliced_balanced, vcl_sliced_c02, vl_list_iteration, vlc_c01, vlc_c18, vlc_sliced, vlc_sliced_balanced, vlc_sliced_c02, vlp_c01, vlp_c18, vlp_sliced, vlp_sliced_balanced, vlp_sliced_c02, vvl_as_built]
+data-layout                      :  [AoS, SoA]
+newton3                          :  [disabled, enabled]
+vectorization-pattern            :  [1xVectorLength, 2xVectorLengthDiv2, VectorLengthDiv2x2, VectorLengthx1]
+cutoff                           :  3
+box-min                          :  [0, 0, 0]
+box-max                          :  [49.5, 29.5, 38]
+cell-size                        :  [1]
+deltaT                           :  0.0005
+pause-simulation-during-tuning   :  true
+aos-sorting-threshold            :  8
+soa-sorting-threshold            :  100
+use-sorting-threshold-benchmark  :  false
+iterations                       :  22000
+boundary-type                    :  [reflective, reflective, reflective]
+Sites:                           
+  0:
+    epsilon                      :  1
+    sigma                        :  1
+    nu                           :  0
+    mass                         :  1
+Objects:                         
+  CubeClosestPacked:
+    0:  
+      particle-density           :  1.02113
+      box-length                 :  [49.5, 29.5, 10]
+      bottomLeftCorner           :  [0, 0, 0]
+      structure                  :  fcc
+      centered                   :  true
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+  Sphere:
+    0:  
+      center                     :  [18, 15, 30]
+      radius                     :  6
+      particle-spacing           :  1.12246
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+globalForce                      :  [0, 0, -12]
+use-tuning-logger                :  false
+output-suffix                    :  
+log-level                        :  info
+no-end-config                    :  false
+no-progress-bar                  :  true
+load-balancer                    :  InvertedPressure
+load-balancing-interval          :  100
+subdivide-dimension              :  [true, true, true]
+energy-sensor                    :  rapl
+
+
+Using 16 Threads
+MPI is disabled.
+[2026-11-26 11:56:13.361] [AutoPasLog] [info] [AutoPasImpl.h:59] AutoPas Version: 3.0.0-e17bad8
+[2026-11-26 11:56:13.361] [AutoPasLog] [info] [AutoPasImpl.h:60] Compiled with  : GCC 15.2.0
+Number of particles at initialization on rank 0: 16288
+Number of particles at initialization globally : 16288
+Iteration 0: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 0: Resuming simulation after tuning phase.
+Iteration 9106: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 9106: Resuming simulation after tuning phase.
+Iteration 18212: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 18212: Resuming simulation after tuning phase.
+
+
+Total number of particles at the end of Simulation: 16288
+Owned: 16288
+Halo : 0
+Measurements:
+Total accumulated                  : 84624967419 ns (84.625s)
+  Initialization                   :     7766703 ns ( 0.008s) =  0.009%
+  Simulate                         : 84617200236 ns (84.617s) = 99.991%
+    PositionUpdate                 :   902763139 ns ( 0.903s) =  1.067%
+    UpdateContainer                :  2381543634 ns ( 2.382s) =  2.814%
+    Boundaries                     :   495087142 ns ( 0.495s) =  0.585%
+      HaloParticleExchange         :   492160236 ns ( 0.492s) =  5.161%
+      ReflectParticlesAtBoundaries :  9040571510 ns ( 9.041s) = 94.808%
+      MigratingParticleExchange    :     2926906 ns ( 0.003s) =  0.031%
+    ForceUpdateTotal               : 70717762293 ns (70.718s) = 83.574%
+      Tuning                       : 27953167426 ns (27.953s) = 39.528%
+      ForceUpdateTuning            : 27953167426 ns (27.953s) = 39.528%
+      ForceUpdateNonTuning         : 42755480313 ns (42.755s) = 60.459%
+    VelocityUpdate                 :  1048337249 ns ( 1.048s) =  1.239%
+    LoadBalancing                  :     3938318 ns ( 0.004s) =  0.005%
+  One iteration                  :     3846236 ns ( 0.004s) =  0.005%
+Total wall-clock time              : 84624967419 ns (84.625s) =100.000%
+
+Tuning iterations                  : 2682 / 22000 = 12.1909%
+MFUPs/sec                          : 5.06713
+Mean Rebuild Frequency               : 7.9748
+Total Energy Consumed (in Joules)    : 0
+
+==========================================
+RUN 3 - Thu Nov 26 11:57:38 CET 2026
+==========================================
+# Running single-site MD simulation.
+
+container                        :  [DirectSum, LinkedCells, LinkedCellsReferences, VarVerletListsAsBuild, VerletClusterLists, VerletLists, VerletListsCells, PairwiseVerletLists]
+verlet-rebuild-frequency         :  10
+verlet-skin-radius               :  1
+verlet-cluster-size              :  4
+selector-strategy                :  Fastest-Absolute-Value
+tuning-strategies                :  []
+tuning-metric                    :  time
+tuning-interval                  :  10000
+tuning-samples                   :  3
+early-stopping-factor            :  1.79769e+308
+use-LOESS-smoothening            :  false
+functor                          :  Lennard-Jones (12-6) Highway Wrapper
+traversal                        :  [ds_sequential, lc_c01, lc_c01_combined_SoA, lc_c04, lc_c04_HCP, lc_c04_combined_SoA, lc_c08, lc_c18, lc_sliced, lc_sliced_balanced, lc_sliced_c02, vcl_c01_balanced, vcl_c06, vcl_cluster_iteration, vcl_sliced, vcl_sliced_balanced, vcl_sliced_c02, vl_list_iteration, vlc_c01, vlc_c18, vlc_sliced, vlc_sliced_balanced, vlc_sliced_c02, vlp_c01, vlp_c18, vlp_sliced, vlp_sliced_balanced, vlp_sliced_c02, vvl_as_built]
+data-layout                      :  [AoS, SoA]
+newton3                          :  [disabled, enabled]
+vectorization-pattern            :  [1xVectorLength, 2xVectorLengthDiv2, VectorLengthDiv2x2, VectorLengthx1]
+cutoff                           :  3
+box-min                          :  [0, 0, 0]
+box-max                          :  [49.5, 29.5, 38]
+cell-size                        :  [1]
+deltaT                           :  0.0005
+pause-simulation-during-tuning   :  true
+aos-sorting-threshold            :  8
+soa-sorting-threshold            :  100
+use-sorting-threshold-benchmark  :  false
+iterations                       :  22000
+boundary-type                    :  [reflective, reflective, reflective]
+Sites:                           
+  0:
+    epsilon                      :  1
+    sigma                        :  1
+    nu                           :  0
+    mass                         :  1
+Objects:                         
+  CubeClosestPacked:
+    0:  
+      particle-density           :  1.02113
+      box-length                 :  [49.5, 29.5, 10]
+      bottomLeftCorner           :  [0, 0, 0]
+      structure                  :  fcc
+      centered                   :  true
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+  Sphere:
+    0:  
+      center                     :  [18, 15, 30]
+      radius                     :  6
+      particle-spacing           :  1.12246
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+globalForce                      :  [0, 0, -12]
+use-tuning-logger                :  false
+output-suffix                    :  
+log-level                        :  info
+no-end-config                    :  false
+no-progress-bar                  :  true
+load-balancer                    :  InvertedPressure
+load-balancing-interval          :  100
+subdivide-dimension              :  [true, true, true]
+energy-sensor                    :  rapl
+
+
+Using 16 Threads
+MPI is disabled.
+[2026-11-26 11:57:38.008] [AutoPasLog] [info] [AutoPasImpl.h:59] AutoPas Version: 3.0.0-e17bad8
+[2026-11-26 11:57:38.008] [AutoPasLog] [info] [AutoPasImpl.h:60] Compiled with  : GCC 15.2.0
+Number of particles at initialization on rank 0: 16288
+Number of particles at initialization globally : 16288
+Iteration 0: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 0: Resuming simulation after tuning phase.
+Iteration 9106: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 9106: Resuming simulation after tuning phase.
+Iteration 18212: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 18212: Resuming simulation after tuning phase.
+
+
+Total number of particles at the end of Simulation: 16288
+Owned: 16288
+Halo : 0
+Measurements:
+Total accumulated                  : 92433281642 ns (92.433s)
+  Initialization                   :     8003611 ns ( 0.008s) =  0.009%
+  Simulate                         : 92425277021 ns (92.425s) = 99.991%
+    PositionUpdate                 :  1310382143 ns ( 1.310s) =  1.418%
+    UpdateContainer                :  3673918184 ns ( 3.674s) =  3.975%
+    Boundaries                     :   712032970 ns ( 0.712s) =  0.770%
+      HaloParticleExchange         :   708937036 ns ( 0.709s) =  7.145%
+      ReflectParticlesAtBoundaries :  9209636068 ns ( 9.210s) = 92.823%
+      MigratingParticleExchange    :     3095934 ns ( 0.003s) =  0.031%
+    ForceUpdateTotal               : 76175995587 ns (76.176s) = 82.419%
+      Tuning                       : 29547165466 ns (29.547s) = 38.788%
+      ForceUpdateTuning            : 29547165466 ns (29.547s) = 38.788%
+      ForceUpdateNonTuning         : 46618839060 ns (46.619s) = 61.199%
+    VelocityUpdate                 :  1302438235 ns ( 1.302s) =  1.409%
+    LoadBalancing                  :    12091154 ns ( 0.012s) =  0.013%
+  One iteration                  :     4201148 ns ( 0.004s) =  0.005%
+Total wall-clock time              : 92433281642 ns (92.433s) =100.000%
+
+Tuning iterations                  : 2682 / 22000 = 12.1909%
+MFUPs/sec                          : 4.70405
+Mean Rebuild Frequency               : 7.9748
+Total Energy Consumed (in Joules)    : 0
+
+==========================================
+RUN 4 - Thu Nov 26 11:59:10 CET 2026
+==========================================
+# Running single-site MD simulation.
+
+container                        :  [DirectSum, LinkedCells, LinkedCellsReferences, VarVerletListsAsBuild, VerletClusterLists, VerletLists, VerletListsCells, PairwiseVerletLists]
+verlet-rebuild-frequency         :  10
+verlet-skin-radius               :  1
+verlet-cluster-size              :  4
+selector-strategy                :  Fastest-Absolute-Value
+tuning-strategies                :  []
+tuning-metric                    :  time
+tuning-interval                  :  10000
+tuning-samples                   :  3
+early-stopping-factor            :  1.79769e+308
+use-LOESS-smoothening            :  false
+functor                          :  Lennard-Jones (12-6) Highway Wrapper
+traversal                        :  [ds_sequential, lc_c01, lc_c01_combined_SoA, lc_c04, lc_c04_HCP, lc_c04_combined_SoA, lc_c08, lc_c18, lc_sliced, lc_sliced_balanced, lc_sliced_c02, vcl_c01_balanced, vcl_c06, vcl_cluster_iteration, vcl_sliced, vcl_sliced_balanced, vcl_sliced_c02, vl_list_iteration, vlc_c01, vlc_c18, vlc_sliced, vlc_sliced_balanced, vlc_sliced_c02, vlp_c01, vlp_c18, vlp_sliced, vlp_sliced_balanced, vlp_sliced_c02, vvl_as_built]
+data-layout                      :  [AoS, SoA]
+newton3                          :  [disabled, enabled]
+vectorization-pattern            :  [1xVectorLength, 2xVectorLengthDiv2, VectorLengthDiv2x2, VectorLengthx1]
+cutoff                           :  3
+box-min                          :  [0, 0, 0]
+box-max                          :  [49.5, 29.5, 38]
+cell-size                        :  [1]
+deltaT                           :  0.0005
+pause-simulation-during-tuning   :  true
+aos-sorting-threshold            :  8
+soa-sorting-threshold            :  100
+use-sorting-threshold-benchmark  :  false
+iterations                       :  22000
+boundary-type                    :  [reflective, reflective, reflective]
+Sites:                           
+  0:
+    epsilon                      :  1
+    sigma                        :  1
+    nu                           :  0
+    mass                         :  1
+Objects:                         
+  CubeClosestPacked:
+    0:  
+      particle-density           :  1.02113
+      box-length                 :  [49.5, 29.5, 10]
+      bottomLeftCorner           :  [0, 0, 0]
+      structure                  :  fcc
+      centered                   :  true
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+  Sphere:
+    0:  
+      center                     :  [18, 15, 30]
+      radius                     :  6
+      particle-spacing           :  1.12246
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+globalForce                      :  [0, 0, -12]
+use-tuning-logger                :  false
+output-suffix                    :  
+log-level                        :  info
+no-end-config                    :  false
+no-progress-bar                  :  true
+load-balancer                    :  InvertedPressure
+load-balancing-interval          :  100
+subdivide-dimension              :  [true, true, true]
+energy-sensor                    :  rapl
+
+
+Using 16 Threads
+MPI is disabled.
+[2026-11-26 11:59:10.467] [AutoPasLog] [info] [AutoPasImpl.h:59] AutoPas Version: 3.0.0-e17bad8
+[2026-11-26 11:59:10.467] [AutoPasLog] [info] [AutoPasImpl.h:60] Compiled with  : GCC 15.2.0
+Number of particles at initialization on rank 0: 16288
+Number of particles at initialization globally : 16288
+Iteration 0: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 0: Resuming simulation after tuning phase.
+Iteration 9106: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 9106: Resuming simulation after tuning phase.
+Iteration 18212: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 18212: Resuming simulation after tuning phase.
+
+
+Total number of particles at the end of Simulation: 16288
+Owned: 16288
+Halo : 0
+Measurements:
+Total accumulated                  : 85057219467 ns (85.057s)
+  Initialization                   :    10283233 ns ( 0.010s) =  0.012%
+  Simulate                         : 85046935294 ns (85.047s) = 99.988%
+    PositionUpdate                 :   941173588 ns ( 0.941s) =  1.107%
+    UpdateContainer                :  2690878813 ns ( 2.691s) =  3.164%
+    Boundaries                     :   496041313 ns ( 0.496s) =  0.583%
+      HaloParticleExchange         :   492932068 ns ( 0.493s) =  5.138%
+      ReflectParticlesAtBoundaries :  9098657379 ns ( 9.099s) = 94.830%
+      MigratingParticleExchange    :     3109245 ns ( 0.003s) =  0.032%
+    ForceUpdateTotal               : 70751309759 ns (70.751s) = 83.191%
+      Tuning                       : 28233285817 ns (28.233s) = 39.905%
+      ForceUpdateTuning            : 28233285817 ns (28.233s) = 39.905%
+      ForceUpdateNonTuning         : 42508603834 ns (42.509s) = 60.082%
+    VelocityUpdate                 :  1037619630 ns ( 1.038s) =  1.220%
+    LoadBalancing                  :     3732062 ns ( 0.004s) =  0.004%
+  One iteration                  :     3865769 ns ( 0.004s) =  0.005%
+Total wall-clock time              : 85057219467 ns (85.057s) =100.000%
+
+Tuning iterations                  : 2682 / 22000 = 12.1909%
+MFUPs/sec                          : 5.06473
+Mean Rebuild Frequency               : 7.9748
+Total Energy Consumed (in Joules)    : 0
+
+==========================================
+RUN 5 - Thu Nov 26 12:00:35 CET 2026
+==========================================
+# Running single-site MD simulation.
+
+container                        :  [DirectSum, LinkedCells, LinkedCellsReferences, VarVerletListsAsBuild, VerletClusterLists, VerletLists, VerletListsCells, PairwiseVerletLists]
+verlet-rebuild-frequency         :  10
+verlet-skin-radius               :  1
+verlet-cluster-size              :  4
+selector-strategy                :  Fastest-Absolute-Value
+tuning-strategies                :  []
+tuning-metric                    :  time
+tuning-interval                  :  10000
+tuning-samples                   :  3
+early-stopping-factor            :  1.79769e+308
+use-LOESS-smoothening            :  false
+functor                          :  Lennard-Jones (12-6) Highway Wrapper
+traversal                        :  [ds_sequential, lc_c01, lc_c01_combined_SoA, lc_c04, lc_c04_HCP, lc_c04_combined_SoA, lc_c08, lc_c18, lc_sliced, lc_sliced_balanced, lc_sliced_c02, vcl_c01_balanced, vcl_c06, vcl_cluster_iteration, vcl_sliced, vcl_sliced_balanced, vcl_sliced_c02, vl_list_iteration, vlc_c01, vlc_c18, vlc_sliced, vlc_sliced_balanced, vlc_sliced_c02, vlp_c01, vlp_c18, vlp_sliced, vlp_sliced_balanced, vlp_sliced_c02, vvl_as_built]
+data-layout                      :  [AoS, SoA]
+newton3                          :  [disabled, enabled]
+vectorization-pattern            :  [1xVectorLength, 2xVectorLengthDiv2, VectorLengthDiv2x2, VectorLengthx1]
+cutoff                           :  3
+box-min                          :  [0, 0, 0]
+box-max                          :  [49.5, 29.5, 38]
+cell-size                        :  [1]
+deltaT                           :  0.0005
+pause-simulation-during-tuning   :  true
+aos-sorting-threshold            :  8
+soa-sorting-threshold            :  100
+use-sorting-threshold-benchmark  :  false
+iterations                       :  22000
+boundary-type                    :  [reflective, reflective, reflective]
+Sites:                           
+  0:
+    epsilon                      :  1
+    sigma                        :  1
+    nu                           :  0
+    mass                         :  1
+Objects:                         
+  CubeClosestPacked:
+    0:  
+      particle-density           :  1.02113
+      box-length                 :  [49.5, 29.5, 10]
+      bottomLeftCorner           :  [0, 0, 0]
+      structure                  :  fcc
+      centered                   :  true
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+  Sphere:
+    0:  
+      center                     :  [18, 15, 30]
+      radius                     :  6
+      particle-spacing           :  1.12246
+      velocity                   :  [0, 0, 0]
+      particle-type-id           :  0
+globalForce                      :  [0, 0, -12]
+use-tuning-logger                :  false
+output-suffix                    :  
+log-level                        :  info
+no-end-config                    :  false
+no-progress-bar                  :  true
+load-balancer                    :  InvertedPressure
+load-balancing-interval          :  100
+subdivide-dimension              :  [true, true, true]
+energy-sensor                    :  rapl
+
+
+Using 16 Threads
+MPI is disabled.
+[2026-11-26 12:00:35.550] [AutoPasLog] [info] [AutoPasImpl.h:59] AutoPas Version: 3.0.0-e17bad8
+[2026-11-26 12:00:35.550] [AutoPasLog] [info] [AutoPasImpl.h:60] Compiled with  : GCC 15.2.0
+Number of particles at initialization on rank 0: 16288
+Number of particles at initialization globally : 16288
+Iteration 0: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 0: Resuming simulation after tuning phase.
+Iteration 9106: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 9106: Resuming simulation after tuning phase.
+Iteration 18212: Freezing simulation for tuning phase. Starting tuning phase...
+Iteration 18212: Resuming simulation after tuning phase.
+
+
+Total number of particles at the end of Simulation: 16288
+Owned: 16288
+Halo : 0
+Measurements:
+Total accumulated                  : 85823819500 ns (85.824s)
+  Initialization                   :     8026841 ns ( 0.008s) =  0.009%
+  Simulate                         : 85815791709 ns (85.816s) = 99.991%
+    PositionUpdate                 :  1004691890 ns ( 1.005s) =  1.171%
+    UpdateContainer                :  2712580549 ns ( 2.713s) =  3.161%
+    Boundaries                     :   517458769 ns ( 0.517s) =  0.603%
+      HaloParticleExchange         :   514639023 ns ( 0.515s) =  5.346%
+      ReflectParticlesAtBoundaries :  9109907803 ns ( 9.110s) = 94.625%
+      MigratingParticleExchange    :     2819746 ns ( 0.003s) =  0.029%
+    ForceUpdateTotal               : 71340226758 ns (71.340s) = 83.132%
+      Tuning                       : 28278101617 ns (28.278s) = 39.638%
+      ForceUpdateTuning            : 28278101617 ns (28.278s) = 39.638%
+      ForceUpdateNonTuning         : 43052697795 ns (43.053s) = 60.348%
+    VelocityUpdate                 :  1097750426 ns ( 1.098s) =  1.279%
+    LoadBalancing                  :     5042297 ns ( 0.005s) =  0.006%
+  One iteration                  :     3900717 ns ( 0.004s) =  0.005%
+Total wall-clock time              : 85823819500 ns (85.824s) =100.000%
+
+Tuning iterations                  : 2682 / 22000 = 12.1909%
+MFUPs/sec                          : 5.02292
+Mean Rebuild Frequency               : 7.9748
+Total Energy Consumed (in Joules)    : 0
+
