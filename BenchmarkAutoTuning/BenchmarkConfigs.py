@@ -4,6 +4,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 
+# IEEE-optimierte Schriftgrößen (ca. 15-20 % kleiner für exakte Passung zum Fließtext)
+plt.rcParams.update({
+    "font.family": "serif",
+    "font.serif": ["Times New Roman", "DejaVu Serif"],
+    "font.size": 10,
+    "axes.labelsize": 11,
+    "xtick.labelsize": 9.5,
+    "ytick.labelsize": 9.5,
+    "legend.fontsize": 9.5,
+})
+
 BASE_DIR = Path(__file__).resolve().parent
 
 config_cols = [
@@ -86,7 +97,7 @@ def analyze_tuning_dataset(
             (phase_df["test_time_ms"] >= 0) & (phase_df["test_time_ms"] < cutoff_ms)
         ]["test_time_ms"]
 
-        fig, ax = plt.subplots(figsize=(7.5, 4.2))
+        fig, ax = plt.subplots(figsize=(4.8, 2.8))
 
         ax.hist(
             subset,
@@ -95,7 +106,7 @@ def analyze_tuning_dataset(
             color="#4C72B0",
             alpha=0.22,
             edgecolor="#4C72B0",
-            linewidth=0.6,
+            linewidth=0.8,
         )
 
         if len(subset) > 1 and subset.nunique() > 1:
@@ -111,22 +122,22 @@ def analyze_tuning_dataset(
             median_val,
             color="#D95F02",
             linestyle="--",
-            linewidth=1.6,
+            linewidth=1.8,
             label=f"Median: {median_val:.2f} ms",
         )
 
-        ax.set_xlabel("Testing Time per Configuration [ms]", fontsize=10.5)
-        ax.set_ylabel("Probability Density", fontsize=10.5)
+        ax.set_xlabel("Testing Time per Configuration [ms]")
+        ax.set_ylabel("Probability Density")
         ax.set_xlim(0, cutoff_ms)
         ax.set_ylim(bottom=-0.002)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.grid(axis="y", linestyle="--", alpha=0.4)
-        ax.legend(frameon=True, facecolor="white", framealpha=0.9)
+        ax.legend(frameon=True, facecolor="white", framealpha=0.9, loc="upper right")
 
         plt.tight_layout()
         output_path = folder / f"{output_prefix}_{phase}.png"
-        plt.savefig(output_path, dpi=300, bbox_inches="tight", pad_inches=0.05)
+        plt.savefig(output_path, dpi=300, bbox_inches="tight", pad_inches=0.03)
         plt.close()
 
 
